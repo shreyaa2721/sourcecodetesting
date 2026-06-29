@@ -30,6 +30,15 @@ jobs:
         with:
           languages: ${{ matrix.language }}
  
-      - uses: github/codeql-action/autobuild@v3
+        - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+ 
+      - name: Build WebGoat
+        run: |
+          cd sample-repos/WebGoat
+          mvn clean package -DskipTests
  
       - uses: github/codeql-action/analyze@v3
